@@ -1,0 +1,43 @@
+:root {
+  color-scheme: dark light;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.wrap {
+  max-width: 820px;
+  width: 100%;
+}
+nav ul {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+nav a {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+nav a:hover {
+  background: #f6f6f6;
+}
+@media (prefers-color-scheme: dark) {
+  nav a:hover {
+    background: #1b1b1b;
+    border-color: #333;
+  }
+}
