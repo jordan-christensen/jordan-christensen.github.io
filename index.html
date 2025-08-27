@@ -3,21 +3,173 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>jordanchristensen.com — coming soon</title>
-    <link rel="stylesheet" href="/src/site.css" />
+    <title>📓 | JC</title>
+    <meta name="description" content="Jordan Christensen — experiments and prototypes. New site coming soon." />
+    <meta property="og:title" content="jordanchristensen.com — coming soon" />
+    <meta property="og:description" content="Experiments and prototypes. Blueprint edition." />
+    <meta name="theme-color" content="#0c2b62" />
+    <style>
+      /* ----------------- Blueprint Theme ----------------- */
+      :root{
+        --paper: #0b2a64;          /* blueprint navy */
+        --grid-major: #9ecbff22;   /* major grid lines */
+        --grid-minor: #9ecbff14;   /* minor grid lines */
+        --ink: #e7f1ff;            /* white ink */
+        --ink-dim: #b7d2ff;        /* dimmed ink */
+        --accent: #aadaff;         /* accent callouts */
+        --stroke: #9ecbff66;       /* stroke for boxes */
+        --tap: 48px;
+        --page-pad: clamp(14px, 3vw, 28px);
+        --content-w: 1040px;
+      }
+      *{ box-sizing: border-box }
+      html, body{ height:100% }
+
+      body{
+        margin:0;
+        color: var(--ink);
+        font: 16px/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        /* Blueprint paper background with minor/major grid */
+        background:
+          /* major grid every 200px */
+          linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+          /* minor grid every 40px */
+          linear-gradient(to right, var(--grid-minor) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px),
+          radial-gradient(1200px 900px at 50% 0%, #123b7e 0%, var(--paper) 70%);
+        background-size:
+          200px 200px,
+          200px 200px,
+          40px 40px,
+          40px 40px,
+          100% 100%;
+        background-position:
+          0 0,
+          0 0,
+          0 0,
+          0 0,
+          0 0;
+        /* top-left layout (no vertical centering) */
+        padding: var(--page-pad);
+      }
+
+      /* Page sheet with crop marks */
+      .sheet{
+        width: min(var(--content-w), 100%);
+        margin: 0 auto;                 /* centered horizontally only */
+        background: #0d2f6b;            /* slightly lighter than body */
+        border: 2px solid var(--stroke);
+        outline: 1px dashed #9ecbff40;
+        padding: clamp(18px, 3vw, 28px);
+        position: relative;
+      }
+      .sheet::before,
+      .sheet::after{
+        content: ""; position: absolute; inset: 8px; border: 1px solid #9ecbff40; pointer-events:none;
+      }
+
+      /* Header block (title + status chips) */
+      .header{
+        display:flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+      .logo{ font-weight: 800; letter-spacing: .08em; text-transform: lowercase; color: var(--ink); font-size: clamp(20px, 5.2vw, 40px); }
+      .subtitle{ color: var(--ink-dim); font-size: 13px; }
+      .chips{ display:flex; gap:8px; align-items:center; }
+      .chip{ border:1px solid var(--stroke); color: var(--ink-dim); padding:6px 10px; border-radius: 6px; background: #0a275e; }
+
+      /* Intro note */
+      .intro{ color: var(--ink-dim); margin: 6px 0 14px; max-width: 70ch; }
+
+      /* Prototype links styled as blueprint callouts */
+      .menu{ list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:12px; grid-template-columns: 1fr; }
+      .tile{
+        position: relative; display:block; text-decoration:none; color: var(--ink);
+        border: 2px solid var(--stroke); background: #0c2b62; padding: 14px 16px; min-height: var(--tap);
+        transition: transform .06s ease;
+      }
+      .tile:hover{ transform: translateY(-1px); }
+      .tile h3{ margin:0 0 6px; font-size: 16px; letter-spacing: .03em; }
+      .tile p{ margin:0; color: var(--ink-dim); font-size: 13px; }
+      .tile::after{ /* little arrow marker */
+        content: "→"; position:absolute; right:10px; top:50%; transform: translateY(-50%);
+        color: var(--accent);
+      }
+
+      /* Title block footer like real blueprints */
+      footer{ margin-top: 18px; color: var(--ink-dim); font-size: 12px; display:flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+      .tb{ display:grid; grid-auto-flow: column; gap:10px; align-items:center; }
+      .tb span{ border:1px solid var(--stroke); padding:4px 8px; background:#0a275e; border-radius:4px; }
+
+      /* Accessibility & mobile niceties */
+      a:focus-visible{ outline: 2px dashed var(--accent); outline-offset: 3px; }
+      @media (max-width: 680px){
+        .menu{ gap: 10px; }
+        .tile h3{ font-size: 17px; }
+        .tile p{ font-size: 13px; }
+        .header{ align-items:flex-start; }
+      }
+      @media (prefers-reduced-motion: reduce){ .tile{ transition: none } }
+    </style>
   </head>
   <body>
-    <main class="wrap">
-      <h1>jordanchristensen</h1>
-      <p>New site coming soon. Prototypes below.</p>
-      <nav>
-        <ul>
-          <li><a href="/prototypes/a/">Prototype A</a></li>
-          <li><a href="/prototypes/b/">Prototype B</a></li>
-          <li><a href="/prototypes/c/">Prototype C</a></li>
-        </ul>
-      </nav>
+    <main class="sheet">
+      <header class="header">
+        <div>
+          <div class="logo">jordanchristensen<span aria-hidden="true">_</span></div>
+          <div class="subtitle">prototype index · blueprint sheet</div>
+        </div>
+        <div class="chips">
+          <div class="chip">REV A</div>
+          <div class="chip">SCALE 1:1</div>
+          <div class="chip">STATUS: DRAFT</div>
+        </div>
+      </header>
+
+      <p class="intro">This page catalogs current UI experiments. Open a sheet to view the build. Designed for phones and desktops. Layout anchors to the top to reduce vertical jump between pages.</p>
+
+      <ul class="menu" aria-label="prototype list">
+        <li>
+          <a class="tile" href="/prototypes/a/">
+            <h3>Prototype A — Timeline</h3>
+            <p>Canvas timeline · pinch/drag zoom · mobile gesture model</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile" href="/prototypes/b/">
+            <h3>Prototype B — Gauges</h3>
+            <p>Gauge cards · animated deltas · high‑contrast readability</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile" href="/prototypes/c/">
+            <h3>Prototype C — Table</h3>
+            <p>Data table · sticky headers · virtual rows · keyboard T‑nav</p>
+          </a>
+        </li>
+      </ul>
+
+      <footer>
+        <div class="tb">
+          <span>© <span id="y"></span> Jordan Christensen</span>
+          <span>SHEET: 1 OF 1</span>
+          <span>DRAWN BY: JC</span>
+        </div>
+        <div class="tb">
+          <span>PROJECT: Personal Site</span>
+          <span>FILE: index.html</span>
+        </div>
+      </footer>
     </main>
-    <script type="module" src="/src/main.js"></script>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+      // Optional keyboard shortcuts (unchanged)
+      const links = ["/prototypes/a/","/prototypes/b/","/prototypes/c/"];
+      window.addEventListener('keydown', (e)=>{
+        if (["1","2","3"].includes(e.key)) { window.location.href = links[Number(e.key)-1]; }
+      });
+    </script>
   </body>
 </html>
