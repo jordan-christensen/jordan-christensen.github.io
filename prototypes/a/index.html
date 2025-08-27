@@ -1,146 +1,186 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Concept A — Single Valve Timeline</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Concept A — Single Valve Timeline</title>
 
-  <style>
-    /* -------- Tokens (theme-friendly) -------- */
-    :root{
-      --grid-line: #e5e7eb;
-      --tone-muted: #a1a1aa;
-      --color-verified: #16a34a;
-      --color-unexpected: #dc2626;
-      --color-manual: #2563eb;
-      --row-alt: #fafafa;
-      --text: #0f172a;
-      --ui-border: #e5e7eb;
-      --ui-bg: #ffffff;
-      --ui-bg-soft: #fbfbfb;
-    }
+    <style>
+      /* -------- Tokens (theme-friendly) -------- */
+      :root {
+        --grid-line: #e5e7eb;
+        --tone-muted: #a1a1aa;
+        --color-verified: #16a34a;
+        --color-unexpected: #dc2626;
+        --color-manual: #2563eb;
+        --row-alt: #fafafa;
+        --text: #0f172a;
+        --ui-border: #e5e7eb;
+        --ui-bg: #ffffff;
+        --ui-bg-soft: #fbfbfb;
+      }
 
-    /* -------- Base -------- */
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: #f6f7f8;
-    }
+      /* -------- Base -------- */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+          Arial, sans-serif;
+        color: var(--text);
+        background: #f6f7f8;
+      }
 
-    /* -------- Header + Controls -------- */
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 10px 12px;
-      background: var(--ui-bg);
-      border-bottom: 1px solid var(--ui-border);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-    }
-    header h1 { font-size: 14px; margin: 0 8px 0 0; font-weight: 600; letter-spacing: .2px; }
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .controls .btn, .controls .tool {
-      appearance: none;
-      border: 1px solid var(--ui-border);
-      border-radius: 6px;
-      background: var(--ui-bg);
-      font: inherit;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-    .controls .btn[aria-pressed="true"] { background: #f4f4f5; }
-    .controls .tools {
-      display: inline-flex;
-      gap: 6px;
-      margin-left: auto;
-    }
-    #rangeLabel {
-      color: #555;
-      font-size: 12px;
-      margin-left: 8px;
-    }
+      /* -------- Header + Controls -------- */
+      header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 10px 12px;
+        background: var(--ui-bg);
+        border-bottom: 1px solid var(--ui-border);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      header h1 {
+        font-size: 14px;
+        margin: 0 8px 0 0;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .controls .btn,
+      .controls .tool {
+        appearance: none;
+        border: 1px solid var(--ui-border);
+        border-radius: 6px;
+        background: var(--ui-bg);
+        font: inherit;
+        padding: 6px 10px;
+        cursor: pointer;
+      }
+      .controls .btn[aria-pressed="true"] {
+        background: #f4f4f5;
+      }
+      .controls .tools {
+        display: inline-flex;
+        gap: 6px;
+        margin-left: auto;
+      }
+      #rangeLabel {
+        color: #555;
+        font-size: 12px;
+        margin-left: 8px;
+      }
 
-    /* -------- Layout -------- */
-    main { padding: 10px 12px 24px; }
-    .timeline-wrap {
-      display: grid;
-      gap: 8px;
-      background: var(--ui-bg);
-      border: 1px solid var(--ui-border);
-      border-radius: 10px;
-      padding: 8px;
-    }
-    .chart {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--ui-border);
-      border-radius: 8px;
-      background: var(--ui-bg-soft);
-    }
-    /* Canvas elements */
-    #timeline, #minimap {
-      display: block;
-      width: 100%;
-    }
-    /* Give minimap a CSS height; timeline height is controlled by JS */
-    #minimap { height: 56px; }
+      /* -------- Layout -------- */
+      main {
+        padding: 10px 12px 24px;
+      }
+      .timeline-wrap {
+        display: grid;
+        gap: 8px;
+        background: var(--ui-bg);
+        border: 1px solid var(--ui-border);
+        border-radius: 10px;
+        padding: 8px;
+      }
+      .chart {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--ui-border);
+        border-radius: 8px;
+        background: var(--ui-bg-soft);
+      }
+      /* Canvas elements */
+      #timeline,
+      #minimap {
+        display: block;
+        width: 100%;
+      }
+      /* Give minimap a CSS height; timeline height is controlled by JS */
+      #minimap {
+        height: 56px;
+      }
 
-    .hint { color: #6b7280; font-size: 12px; margin: 0; }
+      .hint {
+        color: #6b7280;
+        font-size: 12px;
+        margin: 0;
+      }
 
-    /* a11y util */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,1px,1px); white-space: nowrap; border: 0;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Concept A</h1>
-    <div class="controls" role="group" aria-label="Presets and tools">
-      <button class="btn" data-preset="24h" aria-pressed="false">24h</button>
-      <button class="btn" data-preset="7d" aria-pressed="false">7d</button>
-      <button class="btn" data-preset="14d" aria-pressed="true">14d</button>
-      <button class="btn" data-preset="30d" aria-pressed="false">30d</button>
-      <button class="btn" data-preset="1y" aria-pressed="false">1y</button>
-      <span id="rangeLabel" aria-live="polite"></span>
+      /* a11y util */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 1px, 1px);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Concept A</h1>
+      <div class="controls" role="group" aria-label="Presets and tools">
+        <button class="btn" data-preset="24h" aria-pressed="false">24h</button>
+        <button class="btn" data-preset="7d" aria-pressed="false">7d</button>
+        <button class="btn" data-preset="14d" aria-pressed="true">14d</button>
+        <button class="btn" data-preset="30d" aria-pressed="false">30d</button>
+        <button class="btn" data-preset="1y" aria-pressed="false">1y</button>
+        <span id="rangeLabel" aria-live="polite"></span>
 
-      <div class="tools" role="group" aria-label="Zoom and pan tools">
-        <button class="tool" data-zoom="out" title="Zoom out">Zoom –</button>
-        <button class="tool" data-zoom="in" title="Zoom in">Zoom +</button>
-        <button class="tool" data-shift="-0.5" title="Shift left by 50%">◀ Shift</button>
-        <button class="tool" data-shift="0.5" title="Shift right by 50%">Shift ▶</button>
+        <div class="tools" role="group" aria-label="Zoom and pan tools">
+          <button class="tool" data-zoom="out" title="Zoom out">Zoom –</button>
+          <button class="tool" data-zoom="in" title="Zoom in">Zoom +</button>
+          <button class="tool" data-shift="-0.5" title="Shift left by 50%">
+            ◀ Shift
+          </button>
+          <button class="tool" data-shift="0.5" title="Shift right by 50%">
+            Shift ▶
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <section class="timeline-wrap">
-      <h2 class="sr-only">Single valve timeline with minimap</h2>
+    <main>
+      <section class="timeline-wrap">
+        <h2 class="sr-only">Single valve timeline with minimap</h2>
 
-      <div class="chart">
-        <canvas id="timeline" aria-label="Timeline canvas (single valve)"></canvas>
-      </div>
+        <div class="chart">
+          <canvas
+            id="timeline"
+            aria-label="Timeline canvas (single valve)"
+          ></canvas>
+        </div>
 
-      <div class="chart">
-        <canvas id="minimap" aria-label="Minimap / heatmap"></canvas>
-      </div>
+        <div class="chart">
+          <canvas id="minimap" aria-label="Minimap / heatmap"></canvas>
+        </div>
 
-      <p class="hint">
-        Scrolling up/down is reserved for table scrolling (future multi-row). Zoom with two-finger pinch on mobile; on desktop use Zoom ± or hold Alt/Shift/Ctrl while scrolling.
-      </p>
-    </section>
-  </main>
+        <p class="hint">
+          Scrolling up/down is reserved for table scrolling (future multi-row).
+          Zoom with two-finger pinch on mobile; on desktop use Zoom ± or hold
+          Alt/Shift/Ctrl while scrolling.
+        </p>
+      </section>
+    </main>
 
-  <script defer src="/src/a.js"></script>
-</body>
+    <script type="module" src="/src/a.js"></script>
+  </body>
 </html>
